@@ -1,16 +1,15 @@
 <?php 
 include 'ConexionDB.php';
 
-$inputJSON = file_get_contents('php://input');
-$input = json_decode($inputJSON, TRUE);
+
 $insertQuery = "INSERT INTO usuario (correo, contraseña, peso, estatura, edad) VALUES (?,?,?,?,?)";
 
-if(isset($input['correo']) && isset($input['pwd']) && isset($input['peso']) && isset($input['estatura']) && isset($input['edad'])){
-	$correo = $input['correo'];
-	$pwd = $input['pwd'];
-	$peso = $input['peso'];
-	$estatura = $input['estatura'];
-	$edad = $input['edad'];
+if(isset($_GET['correo']) && isset($_GET['pwd']) && isset($_GET['peso']) && isset($_GET['estatura']) && isset($_GET['edad'])){
+	$correo = $_GET['correo'];
+	$pwd = $_GET['pwd'];
+	$peso = $_GET['peso'];
+	$estatura = $_GET['estatura'];
+	$edad = $_GET['edad'];
 	if($stmt = $con->prepare($insertQuery)){
 		$stmt->bind_param("ssiii",$correo,$pwd,$peso,$estatura,$edad);
 		$stmt->execute();
