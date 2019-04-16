@@ -3,27 +3,20 @@ include 'ConexionDB.php';
 
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
-$insertQuery = "INSERT INTO usuario (correo, contraseña, peso, estatura, edad) VALUES (?,?,?,?,?)";
+$insertQuery = "INSERT INTO usuario (correo, contrasena, peso, estatura, edad) VALUES (:correo, :pwd, :peso, :estatura, :edad)";
+$response = new stdClass();
 
 if(isset($input['correo']) && isset($input['pwd']) && isset($input['peso']) && isset($input['estatura']) && isset($input['edad'])){
-	$correo = $input['correo'];
-	$pwd = $input['pwd'];
-	$peso = $input['peso'];
-	$estatura = $input['estatura'];
-	$edad = $input['edad'];
-	if($stmt = $con->prepare($insertQuery)){
-		$stmt->bind_param("ssiii",$correo,$pwd,$peso,$estatura,$edad);
-		$stmt->execute();
-		$response->status = 0;
-		$response->msg = "User created";
-		$stmt->close();
-	}else{
-		$response->status = 1;
-		$response->msg = "error de conexion";
-	}
+	$stmt = $dbConn->prepare($insertQuery);
+		$stmt->bindparam(':correo',$input['correo']);
+        $stmt->bindparam(':pwd',$input['pwd']);
+        $stmt->bindparam(':peso',$input['peso']);
+        $stmt->bindparam(':estatura',$input['estatura']);
+        $stmt->bindparam(':edad',$input['edad']);
+        $stmt->execute();
+    $response['msg'] = "exito";
 }else{
-	$response->status = 1;
-	$response->msg = "No se encontraron los parametros";
+    $response['msg'] = "Fallo";
 }
 echo json_encode($response);
 ?>

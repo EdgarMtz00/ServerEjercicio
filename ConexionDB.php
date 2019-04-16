@@ -1,7 +1,7 @@
 <?php
  
 $databaseHost = 'localhost';
-$databaseName = 'ejercicosbd';
+$databaseName = 'ejerciciosbd';
 $databaseUsername = 'root';
 $databasePassword = '';
  
