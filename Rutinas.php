@@ -1,30 +1,39 @@
 <?php
 include "ConexionDB.php";
 
-function post($dbConn, $input){
-    $insertQuery = "INSERT INTO rutinas VALUES  (:idUsuario, :idEjercicio)";
-    if(isset($input["idUsuario"]) && isset($input["idEjercicio"])){
-        $stmt = $dbConn->prepare($insertQuery);
-        $stmt = $stmt->bindParam(":idUsuario", $input["idUsuario"]);
-        $stmt = $stmt->bindParam("idEjercicio", $input["idEjercicio"]);
-        $stmt->execute();
+function post(PDO $dbConn, $input){
+    $msg = true;
+    foreach ($input as $ejercicio) {
+        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia) VALUES  (:idUsuario, :idEjercicio, :dia)";
+        if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
+            $stmt = $dbConn->prepare($insertQuery);
+            $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
+            $stmt->bindParam("idEjercicio", $ejercicio["idEjercicio"]);
+            $stmt->bindParam("dia", $ejercicio["dia"]);
+            $stmt->execute();
+        } else {
+            $response['msg'] = "Fallo";
+        }
+    }
+    if($msg){
         $response['msg'] = "exito";
-    }else {
+    } else {
         $response['msg'] = "Fallo";
     }
-    return $response;
+    return json_encode($response);
 }
 
-function get($dbConn, $input){
-    $selectQuery = "Select * from rutinas inner join ejercicios 
+function get(PDO $dbConn, $idUsuario){
+    $selectQuery = "Select rutinas.dia, ejercicios.nombre, ejercicios.instrucciones, ejercicios.dificultad, rutinas.repeticiones 
+                    from rutinas inner join ejercicios
                     on rutinas.IDEjercicio = ejercicios.ID 
                     and   rutinas.IDUsuario = :idUsuario";
-    if(isset($input["idUsuario"])){
+    if(isset($idUsuario)){
         $stmt = $dbConn->prepare($selectQuery);
-        $stmt = $stmt->bindParam(":idUsuario", $input["idUsuario"]);
+        $stmt->bindParam(":idUsuario", $idUsuario);
         $stmt->execute();
-        $response = $stmt->fetch();
-        
+        $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($response);
     }
 }
 
@@ -33,5 +42,5 @@ $input = json_decode($inputJSON, TRUE);
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     echo post($dbConn, $input);
 }elseif($_SERVER["REQUEST_METHOD"] == "GET"){
-
+    echo get($dbConn, $_GET["idUsuario"]);
 }
