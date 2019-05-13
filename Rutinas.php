@@ -4,12 +4,13 @@ include "ConexionDB.php";
 function post(PDO $dbConn, $input){
     $msg = true;
     foreach ($input as $ejercicio) {
-        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia) VALUES  (:idUsuario, :idEjercicio, :dia)";
+        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
         if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
             $stmt->bindParam("idEjercicio", $ejercicio["idEjercicio"]);
             $stmt->bindParam("dia", $ejercicio["dia"]);
+            $stmt->bindParam("repeticiones", $ejercicio["repeticiones"]);
             $stmt->execute();
         } else {
             $response['msg'] = "Fallo";
