@@ -8,12 +8,12 @@ function post(PDO $dbConn, $input){
         if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
-            $stmt->bindParam("idEjercicio", $ejercicio["idEjercicio"]);
-            $stmt->bindParam("dia", $ejercicio["dia"]);
-            $stmt->bindParam("repeticiones", $ejercicio["repeticiones"]);
+            $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
+            $stmt->bindParam(":dia", $ejercicio["dia"]);
+            $stmt->bindParam(":repeticiones", $ejercicio["repeticiones"]);
             $stmt->execute();
         } else {
-            $response['msg'] = "Fallo";
+            $msg = false;
         }
     }
     if($msg){
@@ -21,7 +21,7 @@ function post(PDO $dbConn, $input){
     } else {
         $response['msg'] = "Fallo";
     }
-    return json_encode($response);
+    return json_encode(array($response));
 }
 
 function get(PDO $dbConn, $idUsuario){
