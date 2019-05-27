@@ -2,10 +2,15 @@
 include "ConexionDB.php";
 
 function post(PDO $dbConn, $input){
-    $msg = true;
     foreach ($input as $ejercicio) {
         $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
+        $reset = "Delete From rutinas where IDUsuario = :idUsuario and dia = :dia";
         if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
+            $msg = true;
+            $stmt = $dbConn->prepare($reset);
+            $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
+            $stmt->bindParam(":dia", $ejercicio["dia"]);
+            $stmt->execute();
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
             $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
