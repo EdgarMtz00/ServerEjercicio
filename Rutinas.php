@@ -1,16 +1,16 @@
 <?php
 include "ConexionDB.php";
-
+header ('Content-type: text/html; charset=iso8859-15');
 function post(PDO $dbConn, $input){
+    $reset = "Delete From rutinas where IDUsuario = :idUsuario and dia = :dia";
+    $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
+    $stmt = $dbConn->prepare($reset);
+    $stmt->bindParam(":idUsuario", $input[0]["idUsuario"]);
+    $stmt->bindParam(":dia", $input[0]["dia"]);
+    $stmt->execute();
     foreach ($input as $ejercicio) {
-        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
-        $reset = "Delete From rutinas where IDUsuario = :idUsuario and dia = :dia";
         if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
             $msg = true;
-            $stmt = $dbConn->prepare($reset);
-            $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
-            $stmt->bindParam(":dia", $ejercicio["dia"]);
-            $stmt->execute();
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
             $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
@@ -38,8 +38,17 @@ function get(PDO $dbConn, $idUsuario){
         $stmt = $dbConn->prepare($selectQuery);
         $stmt->bindParam(":idUsuario", $idUsuario);
         $stmt->execute();
-        $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return json_encode($response);
+        $prefix = '';
+        echo '[';
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo $prefix, '{"Dia":"', $row['dia'], '"';
+            echo ', "Nombre":"', $row['nombre'], '"';
+            echo ', "Instrucciones":"', $row['instrucciones'], '"';
+            echo ', "Dificultad":', $row['dificultad'];
+            echo ', "Repeticiones":', $row['repeticiones'], '}';
+            $prefix = ',';
+        }
+        echo ']';
     }
 }
 
@@ -48,5 +57,5 @@ $input = json_decode($inputJSON, TRUE);
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     echo post($dbConn, $input);
 }elseif($_SERVER["REQUEST_METHOD"] == "GET"){
-    echo get($dbConn, $_GET["idUsuario"]);
+    get($dbConn, $_GET["idUsuario"]);
 }

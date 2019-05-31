@@ -2,10 +2,11 @@
 include "ConexionDB.php";
 
 function post(PDO $dbConn, $input){
-    $insertMeta = "Update usuario set meta = :meta, promedio = 0, record = 0, ultimo = 0, contador = 0, total = 0 where id = :id";
+    $insertMeta = "Update usuario set meta = :meta, repeticionesmeta = :rep, promedio = 0, record = 0, ultimo = 0, contador = 0, total = 0 where id = :id";
     $stmt = $dbConn->prepare($insertMeta);
     $stmt->bindParam(':meta',$input['meta']);
     $stmt->bindParam(':id', $input{'idUsuario'});
+    $stmt->bindParam(':rep', $input['repeticiones']);
     $stmt->execute();
     return '{"mensaje": "ok"}';
 }
@@ -19,7 +20,7 @@ function get(PDO $dbConn, $idUsuario){
 }
 
 function put(PDO $dbConn, $input){
-    $query = "Select record, promedio, contador, total from usuario where ID = :id";
+    $query = "Select record, promedio, contador, total, meta,  from usuario where ID = :id";
     $stmt = $dbConn->prepare($query);
     $stmt->bindParam(":id", $input['idUsuario']);
     $stmt->execute();
