@@ -20,7 +20,7 @@ function get(PDO $dbConn, $idUsuario){
 }
 
 function put(PDO $dbConn, $input){
-    $query = "Select record, promedio, contador, total, meta,  from usuario where ID = :id";
+    $query = "Select record, promedio, contador, total, meta  from usuario where ID = :id";
     $stmt = $dbConn->prepare($query);
     $stmt->bindParam(":id", $input['idUsuario']);
     $stmt->execute();
