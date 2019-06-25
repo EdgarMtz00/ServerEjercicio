@@ -73,21 +73,32 @@ function put(PDO $dbConn, $input){
     $objetivo = array(10, 7, 5);
     $query = "Select logrado, Repeticiones from rutinas where ID = :id";
     $stmt = $dbConn->prepare($query);
-    $stmt->bindParam(":id", $input['idUsuario']);
+    $stmt->bindParam(":id", $input['id']);
     $stmt->execute();
     $result = $stmt->fetch();
-    if($input['repetciones'] >= $result['Repeticiones']){
+    if($input['repeticiones'] >= $result['Repeticiones']){
         $result['logrado']++;
-        $update = "Update rutinas set Logrado = :logrado";
+        $update = "Update rutinas set Logrado = :logrado where ID = :id";
         $stmt = $dbConn->prepare($update);
         $stmt->bindParam(":logrado", $result['logrado']);
+        $stmt->bindParam(":id", $input['id']);
         $stmt->execute();
-        if($result['logrado'] >= $objetivo[$input['nivel']] && $result['Repeticiones'] + $input['nivel'] <= $input['nivel']*30){
-            $update = "Update rutinas set Repeticiones = :rep";
+        if($result['logrado'] >= $objetivo[$input['nivel']] ){
+            $update = "Update rutinas set Repeticiones = :rep, Logrado = 0 where ID = :id";
             $stmt = $dbConn->prepare($update);
             $result['Repeticiones'] += $input['nivel'];
             $stmt->bindParam(":rep", $result['Repeticiones']);
+            $stmt->bindParam(":id", $input['id']);
             $stmt->execute();
+            if ($result['Repeticiones'] + $input['nivel'] >= $input['nivel']*30){
+                $subirNivel = "Update Usuario set Nivel = :nivel where (Select idUsuario from rutinas where id = :id) = ID";
+                $stmt = $dbConn->prepare($subirNivel);
+                $input['nivel']++;
+                $stmt->bindParam(":nivel", $input['nivel']);
+                $stmt->bindParam(":id", $input['id']);
+                $stmt->execute();
+                $response['nivel'] = $input['nivel'];
+            }
         }
     }
     $response['msg'] = "ok";
@@ -100,4 +111,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     echo post($dbConn, $input);
 }elseif($_SERVER["REQUEST_METHOD"] == "GET"){
     get($dbConn, $_GET["idUsuario"]);
+}elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
+    echo put($dbConn, $input);
 }
