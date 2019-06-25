@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2019 a las 07:05:43
+-- Tiempo de generación: 25-06-2019 a las 17:44:25
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.2
 
@@ -81,7 +81,7 @@ CREATE TABLE `ejercicios_creados` (
 --
 
 INSERT INTO `ejercicios_creados` (`ID`, `Dia`, `IDusuario`, `Nombre`, `Repeticiones`, `Logrado`) VALUES
-(4, 'Jueves', 2479552088723892, 'kk', 15, 0);
+(4, 'Jueves', 2479552088723892, 'kk', 30, 0);
 
 -- --------------------------------------------------------
 
@@ -103,8 +103,8 @@ CREATE TABLE `rutinas` (
 --
 
 INSERT INTO `rutinas` (`ID`, `IDUsuario`, `IDEjercicio`, `Dia`, `Repeticiones`, `Logrado`) VALUES
-(31, 12, 23, 'Lunes', 12, 0),
-(32, 2, 37, 'Lunes', 32, 0),
+(31, 12, 23, 'Lunes', 31, 1),
+(32, 2, 37, 'Lunes', 4, 0),
 (33, 2, 28, 'Lunes', 32, 0),
 (37, 13, 23, 'Lunes', 12, 0),
 (38, 14, 36, 'Lunes', 12, 0),
@@ -277,7 +277,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`ID`, `Correo`, `Contrasena`, `Edad`, `Estatura`, `Peso`, `Meta`, `RepeticionesMeta`, `Record`, `Promedio`, `Ultimo`, `Contador`, `total`, `TiempoCorrer`, `TiempoEjercicio`, `Nivel`) VALUES
 (1, 'edgar.agustin.martinez@gmail.com', 'proyecto', 2, 2, 2, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
-(2, 'edgar@gmail.com', 'proyecto', 22, 127, 70, 'Abdomen', 0, 15, 15, 15, 1, 0, 0, 15, 1),
+(2, 'edgar@gmail.com', 'proyecto', 22, 127, 70, 'Abdomen', 2, 0, 0, 0, 0, 0, 0, 15, 1),
 (4, 'gera@gmail.com', 'colocado', 8, 13, 52, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (6, 'correo@usuario.com', 'pwd', 51, 42, 15, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (7, 'prueba@prueba.com', 'prueba', 19, 114, 67, 'Abdomen', 43, 0, 0, 0, 0, 0, 0, 0, 1),
@@ -285,11 +285,11 @@ INSERT INTO `usuario` (`ID`, `Correo`, `Contrasena`, `Edad`, `Estatura`, `Peso`,
 (9, 'prueba420@gmail.com', 'prueba', 18, 127, 70, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (10, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 3),
 (11, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
-(12, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(12, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 2),
 (13, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (14, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (17, NULL, NULL, 22, 183, 80, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 2),
-(2479552088723892, NULL, NULL, 17, 178, 74, NULL, 0, 0, 0, 0, 0, 0, 7, 0, 2),
+(2479552088723892, NULL, NULL, 17, 178, 74, NULL, 0, 0, 0, 0, 0, 0, 7, 0, 1),
 (2479552088723901, 'unusuarimas@gmail.com', 'edgar123', 20, 183, 78, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 2),
 (2479552088723902, 'pruebarutina@correo.com', 'edgar', 19, 165, 60, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (2479552088723903, 'pruebarutina2@correo.com', 'rutinas', 17, 168, 68, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1),
