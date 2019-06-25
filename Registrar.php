@@ -5,6 +5,7 @@ function post(PDO $dbConn, $input){
     $insertQuery = "INSERT INTO usuario (correo, contrasena, peso, estatura, edad, nivel) VALUES (:correo, :pwd, :peso, :estatura, :edad, :nivel)";
     $insertFacebookUser = "Insert into usuario (id, peso, Estatura, edad, nivel) value (:id, :peso, :estatura, :edad, :nivel)";
     $query = "Select ID, Nivel from usuario where Correo = :correo and Contrasena = :pwd";
+    $nuevo_usuario = "Select Correo from usuario where Correo = :correo";
     if (isset($input['facebook'])) {
         $stmt = $dbConn->prepare($insertFacebookUser);
         $stmt->bindParam(':id', $input['id']);
@@ -15,22 +16,33 @@ function post(PDO $dbConn, $input){
         $stmt->execute();
         $response['msg'] = "exito";
     } elseif (isset($input['correo']) && isset($input['contrasena']) && isset($input['peso']) && isset($input['estatura']) && isset($input['edad'])) {
-        $stmt = $dbConn->prepare($insertQuery);
+        $stmt = $dbConn->prepare($nuevo_usuario);
         $stmt->bindparam(':correo', $input['correo']);
-        $stmt->bindparam(':pwd', $input['contrasena']);
-        $stmt->bindparam(':peso', $input['peso']);
-        $stmt->bindparam(':estatura', $input['estatura']);
-        $stmt->bindparam(':edad', $input['edad']);
-        $stmt->bindParam(':nivel', $input['nivel']);
         $stmt->execute();
-        $stmt = $dbConn->prepare($query);
-        $stmt->bindparam(':correo', $input['correo']);
-        $stmt->bindparam(':pwd', $input['contrasena']);
-        $stmt->execute();
-        $result = $stmt->fetch();
-        $response['msg'] = "exito";
-        $response['id'] = $result['ID'];
-        $response['nivel'] = $result{'Nivel'};
+        $result = $stmt->rowCount();
+        if($result==0)
+        {
+            $stmt = $dbConn->prepare($insertQuery);
+            $stmt->bindparam(':correo', $input['correo']);
+            $stmt->bindparam(':pwd', $input['contrasena']);
+            $stmt->bindparam(':peso', $input['peso']);
+            $stmt->bindparam(':estatura', $input['estatura']);
+            $stmt->bindparam(':edad', $input['edad']);
+            $stmt->bindParam(':nivel', $input['nivel']);
+            $stmt->execute();
+            $stmt = $dbConn->prepare($query);
+            $stmt->bindparam(':correo', $input['correo']);
+            $stmt->bindparam(':pwd', $input['contrasena']);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $response['msg'] = "exito";
+            $response['id'] = $result['ID'];
+            $response['nivel'] = $result{'Nivel'};
+        }
+        else {
+            $response['msg'] = "Fallo";
+        }
+
     } else {
         $response['msg'] = "Fallo";
     }
