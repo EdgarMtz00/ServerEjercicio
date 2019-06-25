@@ -2,7 +2,7 @@
 include 'ConexionDB.php';
     $inputJSON = file_get_contents('php://input');
     $input = json_decode($inputJSON, TRUE);
-    $logQuery = "Select ID from usuario where Contrasena = :pwd and Correo = :correo";
+    $logQuery = "Select ID, Nivel from usuario where Contrasena = :pwd and Correo = :correo";
 
     if(isset($input['correo']) && isset($input['pwd'])){
         $stmt = $dbConn->prepare($logQuery);
@@ -13,6 +13,7 @@ include 'ConexionDB.php';
         if($result) {
             $response['logIn'] = true;
             $response['id'] = $result['ID'];
+            $response['nivel'] = $result['ID'];
             echo json_encode($response);
         }else{
             $response['logIn'] = false;

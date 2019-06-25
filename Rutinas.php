@@ -30,10 +30,12 @@ function post(PDO $dbConn, $input){
 }
 
 function get(PDO $dbConn, $idUsuario){
-    $selectQuery = "Select rutinas.dia, ejercicios.nombre, ejercicios.instrucciones, ejercicios.dificultad, rutinas.repeticiones 
+    $selectQuery = "Select rutinas.id, rutinas.dia, ejercicios.nombre, ejercicios.instrucciones, ejercicios.dificultad,
+                    rutinas.repeticiones, ejercicios.zona 
                     from rutinas inner join ejercicios
                     on rutinas.IDEjercicio = ejercicios.ID 
                     and   rutinas.IDUsuario = :idUsuario";
+
     if(isset($idUsuario)){
         $stmt = $dbConn->prepare($selectQuery);
         $stmt->bindParam(":idUsuario", $idUsuario);
@@ -41,15 +43,55 @@ function get(PDO $dbConn, $idUsuario){
         $prefix = '';
         echo '[';
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo $prefix, '{"Dia":"', $row['dia'], '"';
-            echo ', "Nombre":"', $row['nombre'], '"';
-            echo ', "Instrucciones":"', $row['instrucciones'], '"';
-            echo ', "Dificultad":', $row['dificultad'];
-            echo ', "Repeticiones":', $row['repeticiones'], '}';
+            echo $prefix.'{"Dia":"'. $row['dia']. '"';
+            echo ', "Id":"'. $row['id']. '"';
+            echo ', "Nombre":"'. $row['nombre']. '"';
+            echo ', "Instrucciones":"'. $row['instrucciones']. '"';
+            echo ', "Zona":"'. $row['zona']. '"';
+            echo ', "Dificultad":'. $row['dificultad'];
+            echo ', "Repeticiones":'. $row['repeticiones']. '}';
             $prefix = ',';
+        }
+        $createdQuery = "Select * from ejercicios_creados where IDusuario = :idUsuario";
+        $stmt = $dbConn->prepare($createdQuery);
+        $stmt->bindParam(":idUsuario", $idUsuario);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            echo $prefix.'{"Dia":"'. $row['Dia']. '"';
+            echo ', "Id":"'. $row['ID']. '"';
+            echo ', "Instrucciones":"Realice el ejercicio"';
+            echo ', "Zona":"Ejercicio Creado"';
+            echo ', "Dificultad":0';
+            echo ', "Nombre":"'. $row['Nombre']. '"';
+            echo ', "Repeticiones":'. $row['Repeticiones']. '}';
         }
         echo ']';
     }
+}
+
+function put(PDO $dbConn, $input){
+    $objetivo = array(10, 7, 5);
+    $query = "Select logrado, Repeticiones from rutinas where ID = :id";
+    $stmt = $dbConn->prepare($query);
+    $stmt->bindParam(":id", $input['idUsuario']);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    if($input['repetciones'] >= $result['Repeticiones']){
+        $result['logrado']++;
+        $update = "Update rutinas set Logrado = :logrado";
+        $stmt = $dbConn->prepare($update);
+        $stmt->bindParam(":logrado", $result['logrado']);
+        $stmt->execute();
+        if($result['logrado'] >= $objetivo[$input['nivel']] && $result['Repeticiones'] + $input['nivel'] <= $input['nivel']*30){
+            $update = "Update rutinas set Repeticiones = :rep";
+            $stmt = $dbConn->prepare($update);
+            $result['Repeticiones'] += $input['nivel'];
+            $stmt->bindParam(":rep", $result['Repeticiones']);
+            $stmt->execute();
+        }
+    }
+    $response['msg'] = "ok";
+    return json_encode($response);
 }
 
 $inputJSON = file_get_contents('php://input');

@@ -4,7 +4,7 @@ include 'ConexionDB.php';
 function post(PDO $dbConn, $input){
     $insertQuery = "INSERT INTO usuario (correo, contrasena, peso, estatura, edad, nivel) VALUES (:correo, :pwd, :peso, :estatura, :edad, :nivel)";
     $insertFacebookUser = "Insert into usuario (id, peso, Estatura, edad, nivel) value (:id, :peso, :estatura, :edad, :nivel)";
-    $query = "Select ID from usuario where Correo = :correo and Contrasena = :pwd";
+    $query = "Select ID, Nivel from usuario where Correo = :correo and Contrasena = :pwd";
     if (isset($input['facebook'])) {
         $stmt = $dbConn->prepare($insertFacebookUser);
         $stmt->bindParam(':id', $input['id']);
@@ -30,6 +30,7 @@ function post(PDO $dbConn, $input){
         $result = $stmt->fetch();
         $response['msg'] = "exito";
         $response['id'] = $result['ID'];
+        $response['nivel'] = $result{'Nivel'};
     } else {
         $response['msg'] = "Fallo";
     }
@@ -37,12 +38,13 @@ function post(PDO $dbConn, $input){
 }
 
 function get($dbConn, $idUsuario){
-    $facebookIdQuery = "Select id from usuario where ID = :id";
+    $facebookIdQuery = "Select id, Nivel from usuario where ID = :id";
     $stmt = $dbConn->prepare($facebookIdQuery);
     $stmt->bindParam(':id', $idUsuario);
     $stmt->execute();
     if ($stmt->fetch()) {
         $response['register'] = true;
+        $response['nivel'] = $stmt['Nivel'];
     }else {
         $response['register'] = false;
     }
