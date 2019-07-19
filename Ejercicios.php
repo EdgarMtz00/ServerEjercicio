@@ -3,8 +3,12 @@ include 'ConexionDB.php';
 header ('Content-type: text/html; charset=iso8859-15');
 function get(PDO $dbConn){
     $selectQuery = "Select * from ejercicios";
+    $userExerciseQuery = "Select Nombre, ID from ejercicios_creados WHERE IDusuario = :id";
     $stmt = $dbConn->prepare($selectQuery);
     $stmt->execute();
+    $stmt2 = $dbConn->prepare($userExerciseQuery);
+    $stmt2->bindParam(':id', $_GET['idUsuario']);
+    $stmt2->execute();
     $prefix = '';
     echo '[';
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -15,6 +19,13 @@ function get(PDO $dbConn){
         echo ', "Dificultad":', $row['Dificultad'];
         echo ', "Zona":"', $row['Zona'], '"}';
         $prefix = ',';
+    }
+    while($row = $stmt2->fetch(PDO::FETCH_ASSOC)) {
+        echo ', {"ID":', $row['ID'];
+        echo ', "Nombre":"', $row['Nombre'], '"';
+        echo ', "Instrucciones":""';
+        echo ', "Dificultad":""';
+        echo ', "Zona":"Brazos"}';
     }
     echo ']';
 
