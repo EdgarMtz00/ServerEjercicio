@@ -3,7 +3,7 @@ include 'ConexionDB.php';
 header ('Content-type: text/html; charset=iso8859-15');
 function get(PDO $dbConn){
     $selectQuery = "Select * from ejercicios";
-    $userExerciseQuery = "Select Nombre, ID from ejercicios_creados WHERE IDusuario = :id";
+    $userExerciseQuery = "Select Nombre, ID, Zona from ejercicios_creados WHERE IDusuario = :id";
     $stmt = $dbConn->prepare($selectQuery);
     $stmt->execute();
     $stmt2 = $dbConn->prepare($userExerciseQuery);
@@ -24,19 +24,20 @@ function get(PDO $dbConn){
         echo ', {"ID":', $row['ID'];
         echo ', "Nombre":"', $row['Nombre'], '"';
         echo ', "Instrucciones":""';
-        echo ', "Dificultad":""';
-        echo ', "Zona":"Brazos"}';
+        echo ', "Dificultad":1';
+        echo ', "Zona":"', $row['Zona'], '"}';
     }
     echo ']';
 }
 
 function post(PDO $dbConn, $input){
-    $crearEjercicio = "Insert into ejercicios_creados (Dia, IDusuario, Nombre, Repeticiones) values (:dia, :id, :nombre, :rep)";
+    $crearEjercicio = "Insert into ejercicios_creados (Dia, IDusuario, Nombre, Repeticiones, Zona) values (:dia, :id, :nombre, :rep, :zona)";
     $stmt = $dbConn->prepare($crearEjercicio);
     $stmt->bindParam(":dia", $input['dia']);
     $stmt->bindParam(":id", $input['idUsuario']);
     $stmt->bindParam(":nombre", $input['nombre']);
     $stmt->bindParam(":rep", $input['repeticiones']);
+    $stmt->bindParam(":zona", $input['zona']);
     $stmt->execute();
     $response['msg'] = "OK";
     return json_encode($response);
