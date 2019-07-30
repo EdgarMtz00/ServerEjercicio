@@ -30,7 +30,7 @@ function post(PDO $dbConn, $input){
 }
 
 function get(PDO $dbConn, $idUsuario){
-    $selectQuery = "Select rutinas.id, rutinas.dia, ejercicios.nombre, ejercicios.instrucciones, ejercicios.dificultad,
+    $selectQuery = "Select rutinas.id, rutinas.dia, rutinas.peso, ejercicios.nombre, ejercicios.instrucciones, ejercicios.dificultad,
                     rutinas.repeticiones, ejercicios.zona 
                     from rutinas inner join ejercicios
                     on rutinas.IDEjercicio = ejercicios.ID 
@@ -49,7 +49,8 @@ function get(PDO $dbConn, $idUsuario){
             echo ', "Instrucciones":"'. $row['instrucciones']. '"';
             echo ', "Zona":"'. $row['zona']. '"';
             echo ', "Dificultad":'. $row['dificultad'];
-            echo ', "Repeticiones":'. $row['repeticiones']. '}';
+            echo ', "Repeticiones":'. $row['repeticiones'];
+            echo ', "Peso":'.$row['peso']. '}';
             $prefix = ',';
         }
         $createdQuery = "Select * from ejercicios_creados where IDusuario = :idUsuario";

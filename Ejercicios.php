@@ -28,7 +28,6 @@ function get(PDO $dbConn){
         echo ', "Zona":"Brazos"}';
     }
     echo ']';
-
 }
 
 function post(PDO $dbConn, $input){
