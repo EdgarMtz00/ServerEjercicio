@@ -1,145 +1,140 @@
 [
   {
     "idEjercicio":32,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":33,
-    "repeticiones":15,
+    "idEjercicio":41,
+    "repeticiones":20,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
     "idEjercicio":35,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":37,
-    "repeticiones":15,
+    "idEjercicio":28,
+    "repeticiones":20,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
     "idEjercicio":34,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
     "idEjercicio":19,
-    "repeticiones":15,
-    "dia":"martes",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":20,
-    "repeticiones":15,
-    "dia":"martes",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":21,
-    "repeticiones":15,
-    "dia":"martes",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":23,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"martes",
     "peso":"Medio"
   },
   {
     "idEjercicio":25,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"martes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":29,
-    "repeticiones":15,
+    "idEjercicio":21,
+    "repeticiones":20,
+    "dia":"martes",
+    "peso":"Medio"
+  },
+  {
+    "idEjercicio":41,
+    "repeticiones":20,
+    "dia":"martes",
+    "peso":"Medio"
+  },
+  {
+    "idEjercicio":34,
+    "repeticiones":20,
     "dia":"miercoles",
     "peso":"Medio"
   },
   {
     "idEjercicio":33,
-    "repeticiones":15,
+    "repeticiones":20,
+    "dia":"miercoles",
+    "peso":"Medio"
+  },
+
+  {
+    "idEjercicio":43,
+    "repeticiones":20,
     "dia":"miercoles",
     "peso":"Medio"
   },
   {
-    "idEjercicio":28,
-    "repeticiones":15,
-    "dia":"miercoles",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":30,
-    "repeticiones":15,
+    "idEjercicio":41,
+    "repeticiones":20,
     "dia":"miercoles",
     "peso":"Medio"
   },
   {
     "idEjercicio":32,
-    "repeticiones":12,
+    "repeticiones":20,
     "dia":"jueves",
     "peso":"Medio"
   },
   {
     "idEjercicio":33,
-    "repeticiones":12,
+    "repeticiones":20,
     "dia":"jueves",
     "peso":"Medio"
   },
   {
     "idEjercicio":33,
-    "repeticiones":12,
+    "repeticiones":20,
     "dia":"jueves",
     "peso":"Medio"
   },
   {
-    "idEjercicio":19,
-    "repeticiones":12,
+    "idEjercicio":41,
+    "repeticiones":20,
     "dia":"jueves",
     "peso":"Medio"
   },
   {
-    "idEjercicio":20,
-    "repeticiones":12,
-    "dia":"jueves",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":21,
-    "repeticiones":12,
+    "idEjercicio":39,
+    "repeticiones":20,
     "dia":"jueves",
     "peso":"Medio"
   },
   {
     "idEjercicio":28,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"viernes",
     "peso":"Medio"
   },
   {
     "idEjercicio":29,
-    "repeticiones":15,
+    "repeticiones":20,
     "dia":"viernes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":30,
-    "repeticiones":15,
+    "idEjercicio":43,
+    "repeticiones":20,
     "dia":"viernes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":23,
-    "repeticiones":15,
+    "idEjercicio":40,
+    "repeticiones":20,
+    "dia":"viernes",
+    "peso":"Medio"
+  },
+  {
+    "idEjercicio":34,
+    "repeticiones":20,
     "dia":"viernes",
     "peso":"Medio"
   }

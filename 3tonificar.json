@@ -12,19 +12,19 @@
     "peso":"Medio"
   },
   {
+    "idEjercicio":47,
+    "repeticiones":24,
+    "dia":"lunes",
+    "peso":"Medio"
+  },
+  {
     "idEjercicio":33,
     "repeticiones":24,
     "dia":"lunes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":42,
-    "repeticiones":24,
-    "dia":"lunes",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":41,
+    "idEjercicio":48,
     "repeticiones":24,
     "dia":"lunes",
     "peso":"Medio"
@@ -36,7 +36,7 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":19,
+    "idEjercicio":17,
     "repeticiones":24,
     "dia":"martes",
     "peso":"Medio"
@@ -48,13 +48,13 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":18,
+    "idEjercicio":46,
     "repeticiones":24,
     "dia":"martes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":44,
+    "idEjercicio":45,
     "repeticiones":24,
     "dia":"martes",
     "peso":"Medio"
@@ -72,7 +72,7 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":29,
+    "idEjercicio":48,
     "repeticiones":24,
     "dia":"miercoles",
     "peso":"Medio"
@@ -84,13 +84,13 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":33,
+    "idEjercicio":27,
     "repeticiones":24,
     "dia":"miercoles",
     "peso":"Medio"
   },
   {
-    "idEjercicio":27,
+    "idEjercicio":47,
     "repeticiones":24,
     "dia":"jueves",
     "peso":"Medio"
@@ -101,7 +101,7 @@
     "dia":"jueves"
   },
   {
-    "idEjercicio":33,
+    "idEjercicio":41,
     "repeticiones":24,
     "dia":"jueves",
     "peso":"Medio"
@@ -113,7 +113,7 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":41,
+    "idEjercicio":48,
     "repeticiones":24,
     "dia":"jueves",
     "peso":"Medio"
@@ -125,7 +125,7 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":19,
+    "idEjercicio":17,
     "repeticiones":24,
     "dia":"viernes",
     "peso":"Medio"
@@ -137,13 +137,13 @@
     "peso":"Medio"
   },
   {
-    "idEjercicio":18,
+    "idEjercicio":46,
     "repeticiones":24,
     "dia":"viernes",
     "peso":"Medio"
   },
   {
-    "idEjercicio":44,
+    "idEjercicio":45,
     "repeticiones":24,
     "dia":"viernes",
     "peso":"Medio"
@@ -152,30 +152,6 @@
     "idEjercicio":41,
     "repeticiones":24,
     "dia":"viernes",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":42,
-    "repeticiones":24,
-    "dia":"sabado",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":29,
-    "repeticiones":24,
-    "dia":"sabado",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":43,
-    "repeticiones":24,
-    "dia":"sabado",
-    "peso":"Medio"
-  },
-  {
-    "idEjercicio":33,
-    "repeticiones":24,
-    "dia":"sabado",
     "peso":"Medio"
   }
 ]

@@ -41,8 +41,12 @@ function get(PDO $dbConn, $idUsuario){
         $stmt->bindParam(":idUsuario", $idUsuario);
         $stmt->execute();
         $prefix = '';
+
         echo '[';
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if($row['peso'] == null){
+                $row['peso'] = "null";
+            }
             echo $prefix.'{"Dia":"'. $row['dia']. '"';
             echo ', "Id":"'. $row['id']. '"';
             echo ', "Nombre":"'. $row['nombre']. '"';
