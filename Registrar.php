@@ -22,6 +22,7 @@ function post(PDO $dbConn, $input){
         $result = $stmt->rowCount();
         if($result==0)
         {
+            $input['contrasena'] == md5($input['contrasena']);
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindparam(':correo', $input['correo']);
             $stmt->bindparam(':pwd', $input['contrasena']);
