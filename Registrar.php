@@ -75,19 +75,19 @@ function asignaRutina($input, PDO $dbConn){
         $stmt->execute();
         $result = $stmt->fetch();
         $id = $result['ID'];
-        echo $id;
     }
 
-    $file = file_get_contents($input['nivel'].'.json');
+    $file = file_get_contents($input['nivel'].$input['enfoque'].'.json');
     $file = json_decode($file, true);
 
     foreach ($file as $ejercicio) {
-        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
+        $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones, peso) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones, :peso)";
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindParam(":idUsuario", $id);
             $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
             $stmt->bindParam(":dia", $ejercicio["dia"]);
             $stmt->bindParam(":repeticiones", $ejercicio["repeticiones"]);
+            $stmt->bindParam(":peso", $ejercicio["peso"]);
             $stmt->execute();
     }
 }
