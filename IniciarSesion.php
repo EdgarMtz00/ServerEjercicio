@@ -5,6 +5,7 @@ include 'ConexionDB.php';
     $logQuery = "Select ID, Nivel from usuario where Contrasena = :pwd and Correo = :correo";
 
     if(isset($input['correo']) && isset($input['pwd'])){
+        $input['pwd'] = md5($input['pwd']);
         $stmt = $dbConn->prepare($logQuery);
         $stmt->bindParam(":pwd", $input['pwd']);
         $stmt->bindParam(":correo", $input['correo']);

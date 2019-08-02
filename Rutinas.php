@@ -4,6 +4,7 @@ header ('Content-type: text/html; charset=iso8859-15');
 function post(PDO $dbConn, $input){
     $reset = "Delete From rutinas where IDUsuario = :idUsuario and dia = :dia";
     $insertQuery = "INSERT INTO rutinas (idusuario, idejercicio, dia, repeticiones) VALUES  (:idUsuario, :idEjercicio, :dia, :repeticiones)";
+    $insertCreatedQuery = "INSERT INTO ejercicios_creados (idusuario, nombre, dia, repeticiones, zona) VALUES  (:idUsuario, :nombre, :dia, :repeticiones, :zona)";
     $stmt = $dbConn->prepare($reset);
     $stmt->bindParam(":idUsuario", $input[0]["idUsuario"]);
     $stmt->bindParam(":dia", $input[0]["dia"]);
@@ -11,12 +12,23 @@ function post(PDO $dbConn, $input){
     foreach ($input as $ejercicio) {
         if (isset($ejercicio["idUsuario"]) && isset($ejercicio["idEjercicio"])) {
             $msg = true;
-            $stmt = $dbConn->prepare($insertQuery);
-            $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
-            $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
-            $stmt->bindParam(":dia", $ejercicio["dia"]);
-            $stmt->bindParam(":repeticiones", $ejercicio["repeticiones"]);
-            $stmt->execute();
+            if($ejercicio["idEjercicio"]<200){
+                $stmt = $dbConn->prepare($insertQuery);
+                $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
+                $stmt->bindParam(":idEjercicio", $ejercicio["idEjercicio"]);
+                $stmt->bindParam(":dia", $ejercicio["dia"]);
+                $stmt->bindParam(":repeticiones", $ejercicio["repeticiones"]);
+                $stmt->execute();
+            } else {
+                $stmt = $dbConn->prepare($insertCreatedQuery);
+                $stmt->bindParam(":idUsuario", $ejercicio["idUsuario"]);
+                $stmt->bindParam(":nombre", $ejercicio["nombre"]);
+                $stmt->bindParam(":dia", $ejercicio["dia"]);
+                $stmt->bindParam(":repeticiones", $ejercicio["repeticiones"]);
+                $stmt->bindParam(":zona", $ejercicio["zona"]);
+                $stmt->execute();
+            }
+            
         } else {
             $msg = false;
         }
