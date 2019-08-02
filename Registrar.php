@@ -50,13 +50,13 @@ function post(PDO $dbConn, $input){
 }
 
 function get($dbConn, $idUsuario){
-    $facebookIdQuery = "Select id, Nivel from usuario where ID = :id";
+    $facebookIdQuery = "Select Nivel from usuario where ID = :id";
     $stmt = $dbConn->prepare($facebookIdQuery);
     $stmt->bindParam(':id', $idUsuario);
     $stmt->execute();
-    if ($stmt->fetch()) {
+    if ($result = $stmt->fetch()) {
         $response['register'] = true;
-        $response['nivel'] = $stmt['Nivel'];
+        $response['nivel'] = $result['Nivel'];
     }else {
         $response['register'] = false;
     }
