@@ -70,6 +70,7 @@ function asignaRutina($input, PDO $dbConn){
     if (isset($input['facebook'])){
         $id = $input['id'];
     }else{
+        $input['contrasena'] = md5($input['contrasena']);
         $stmt = $dbConn->prepare($query);
         $stmt->bindparam(':correo', $input['correo']);
         $stmt->bindparam(':pwd', $input['contrasena']);
