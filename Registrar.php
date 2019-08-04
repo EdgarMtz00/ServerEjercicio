@@ -22,7 +22,7 @@ function post(PDO $dbConn, $input){
         $result = $stmt->rowCount();
         if($result==0)
         {
-            $input['contrasena'] == md5($input['contrasena']);
+            $input['contrasena'] = md5($input['contrasena']);
             $stmt = $dbConn->prepare($insertQuery);
             $stmt->bindparam(':correo', $input['correo']);
             $stmt->bindparam(':pwd', $input['contrasena']);
@@ -39,9 +39,10 @@ function post(PDO $dbConn, $input){
             $response['msg'] = "exito";
             $response['id'] = $result['ID'];
             $response['nivel'] = $result{'Nivel'};
+            echo $input['contrasena'];
         }
         else {
-            $response['msg'] = "Fallo";
+            $response['msg'] = "doble Fallo";
         }
 
     } else {

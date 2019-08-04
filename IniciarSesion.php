@@ -13,7 +13,7 @@ include 'ConexionDB.php';
         $result = $stmt->fetch();
         if($result) {
             $response['logIn'] = true;
-            $response['id'] = $result['ID'];
+            $response['id'] = "".$result['ID'];
             $response['nivel'] = $result['Nivel'];
             echo json_encode($response);
         }else{
