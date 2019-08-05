@@ -78,7 +78,11 @@ function put(PDO $dbConn, $input){
             return '{"msg": "Meta No Alcanzada"}';
         }
     }else{
-        $input['nuevaMeta'] += $input['nivel'] * 5;
+        if(isset($input['req'])) {
+            $input['nuevaMeta'] = $input['req'];
+        }else{
+            $input['nuevaMeta'] += $input['nivel'] * 5;
+        }
         $aumentarMeta = "Update usuario set RepeticionesMeta = :rep where ID = :id";
         $stmt = $dbConn->prepare($aumentarMeta);
         $stmt->bindParam(":rep", $input['nuevaMeta']);
