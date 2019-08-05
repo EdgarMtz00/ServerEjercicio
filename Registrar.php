@@ -39,7 +39,6 @@ function post(PDO $dbConn, $input){
             $response['msg'] = "exito";
             $response['id'] = $result['ID'];
             $response['nivel'] = $result{'Nivel'};
-            echo $input['contrasena'];
         }
         else {
             $response['msg'] = "doble Fallo";
